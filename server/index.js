@@ -2,9 +2,9 @@ import express from 'express';
 const app = express();
 import mongoose from 'mongoose';
 import 'dotenv/config';
-
 /*******************IMPORT ROUTES*******************/
 import userRoutes from './routes/user.js';
+import authRoutes from './routes/auth.js';
 /*****************IMPORT ROUTES END******************/
 
 
@@ -13,6 +13,11 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("Database Connected"))
 .catch(err => console.log(err))
 /****************CONNECT DATABASE END****************/
+
+
+/********************REQUIREMENTS********************/
+app.use(express.json());
+/******************REQUIREMENTS END*******************/
 
 
 /********************START SERVER********************/
@@ -25,4 +30,5 @@ app.listen(server_port, () => {
 
 /******************CONFIGURE ROUTES*******************/
 app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 /****************CONFIGURE ROUTES END******************/
