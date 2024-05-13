@@ -1,7 +1,9 @@
 import User from '../models/user.js';
 import bcrypt from 'bcrypt';
+import ExpressError from '../utils/ExpressError.js';
+import catchAsync from '../utils/catchAsync.js';
 
-export const signup = async (req, res) => {
+export const signup = catchAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (
@@ -12,27 +14,22 @@ export const signup = async (req, res) => {
     email === '' ||
     password === ''
   ) {
-    return res.status(400).json({ message: 'All fields are required' });
+    throw new ExpressError('All fields are required', 400);
   }
-
-  try {
-    const userExists = await User.findOne({
-      $or: [{username}, {email}]
-    })
-    if(userExists) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
-    });
-
-    await newUser.save();
-    res.json('Signup successful');
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  const userExists = await User.findOne({
+    $or: [{username}, {email}]
+  })
+  if(userExists) {
+    throw new ExpressError('User already exists', 400);
   }
-};
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = new User({
+    username,
+    email,
+    password: hashedPassword,
+  });
+
+  await newUser.save();
+  res.json('Signup successful');
+});

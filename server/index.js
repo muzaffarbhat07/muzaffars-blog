@@ -32,3 +32,17 @@ app.listen(server_port, () => {
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 /****************CONFIGURE ROUTES END******************/
+
+
+/******************ERROR HANDLER***********************/
+app.use((err, req, res, next) => {
+  const { message = 'Something went wrong.', statusCode = 500 } = err;
+  if(typeof(message) !== 'string') {
+    message = JSON.stringify(message)
+  }
+  res.status(statusCode).json({
+    error: message,
+    success: false,
+  });
+})
+/****************ERROR HANDLER END**********************/
