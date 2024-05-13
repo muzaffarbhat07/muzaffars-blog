@@ -1,0 +1,17 @@
+{
+  "name": "muzaffars-blog",
+  "version": "1.0.0",
+  "description": "My personal blog app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js"
+  },
+  "author": "Muzaffar Ahmad Bhat",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
+  }
+}
