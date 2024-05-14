@@ -73,6 +73,7 @@ const SignUp = () => {
                 id='username' 
                 value={formData.username}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -83,6 +84,7 @@ const SignUp = () => {
                 id='email' 
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -93,6 +95,7 @@ const SignUp = () => {
                 id='password' 
                 value={formData.password}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -103,6 +106,7 @@ const SignUp = () => {
                 id='confirmPassword' 
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                required
               />
             </div>
             <Button
