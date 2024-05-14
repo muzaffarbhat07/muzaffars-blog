@@ -13,7 +13,8 @@ const SignIn = () => {
     email: '',
     password: ''
   });
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const { loading, error: errorMessage, currentUser } = useSelector((state) => state.user);
+  console.log(currentUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleChange = (e) => {
