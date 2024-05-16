@@ -7,7 +7,7 @@ export const test = (req, res) => {
   res.json({ message: 'API is working!' });
 };
 
-export const updateUser = catchAsync(async (req, res, next) => {
+export const updateUser = catchAsync(async (req, res) => {
   console.log('updating')
   if (req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to update this user', 403);
@@ -46,4 +46,13 @@ export const updateUser = catchAsync(async (req, res, next) => {
   );
   const { password, ...rest } = updatedUser._doc;
   res.status(200).json(rest);
+});
+
+export const deleteUser = catchAsync(async (req, res) => {
+  if (req.user.id !== req.params.userId) {
+    throw new ExpressError('You are not allowed to delete this user', 403);
+  }
+
+  await User.findByIdAndDelete(req.params.userId);
+  res.status(200).json('User has been deleted');
 });

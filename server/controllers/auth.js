@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import ExpressError from '../utils/ExpressError.js';
 import catchAsync from '../utils/catchAsync.js';
 
-export const signup = catchAsync(async (req, res, next) => {
+export const signup = catchAsync(async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     throw new ExpressError('All fields are required', 400);
@@ -27,7 +27,7 @@ export const signup = catchAsync(async (req, res, next) => {
   res.json('Signup successful');
 });
 
-export const signin = catchAsync(async (req, res, next) => {
+export const signin = catchAsync(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     throw new ExpressError('All fields are required', 400);
@@ -53,7 +53,7 @@ export const signin = catchAsync(async (req, res, next) => {
     .json(rest);
 });
 
-export const google = catchAsync(async (req, res, next) => {
+export const google = catchAsync(async (req, res) => {
   const { email, name, googlePhotoUrl } = req.body;
   if (!email || !name || !googlePhotoUrl) {
     throw new ExpressError('All fields are required', 400);
