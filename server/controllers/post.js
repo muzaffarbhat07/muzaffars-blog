@@ -63,3 +63,11 @@ export const getposts = catchAsync(async (req, res, next) => {
     lastMonthPosts,
   });
 });
+
+export const deletepost = catchAsync(async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    throw new ExpressError('You are not allowed to delete this post', 403);
+  }
+  await Post.findByIdAndDelete(req.params.postId);
+  res.status(200).json('The post has been deleted');
+});
