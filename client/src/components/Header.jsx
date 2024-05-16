@@ -5,6 +5,7 @@ import { FaMoon, FaSun  } from 'react-icons/fa';
 import { useState } from 'react';
 import { useSelector, useDispatch  } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
+import { signoutSuccess } from '../redux/user/userSlice';
 
 const Header = () => {
   const path = useLocation().pathname;
@@ -16,6 +17,22 @@ const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+  };
+  
+  const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/auth/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -67,7 +84,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to='/signin'>
