@@ -92,3 +92,10 @@ export const google = catchAsync(async (req, res) => {
       .json(rest);
   }
 });
+
+export const signout = (req, res) => {
+  res
+    .clearCookie('access_token')
+    .status(200)
+    .json('User has been signed out');
+};
