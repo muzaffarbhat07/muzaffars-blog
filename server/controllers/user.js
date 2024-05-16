@@ -8,6 +8,7 @@ export const test = (req, res) => {
 };
 
 export const updateUser = catchAsync(async (req, res, next) => {
+  console.log('updating')
   if (req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to update this user', 403);
   }
@@ -30,19 +31,19 @@ export const updateUser = catchAsync(async (req, res, next) => {
     if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
       throw new ExpressError('Username can only contain letters and numbers', 400);
     }
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.userId,
-      {
-        $set: {
-          username: req.body.username,
-          email: req.body.email,
-          profilePicture: req.body.profilePicture,
-          password: req.body.password,
-        },
-      },
-      { new: true }
-    );
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
   }
+  const updatedUser = await User.findByIdAndUpdate(
+    req.params.userId,
+    {
+      $set: {
+        username: req.body.username,
+        email: req.body.email,
+        profilePicture: req.body.profilePicture,
+        password: req.body.password,
+      },
+    },
+    { new: true }
+  );
+  const { password, ...rest } = updatedUser._doc;
+  res.status(200).json(rest);
 });
