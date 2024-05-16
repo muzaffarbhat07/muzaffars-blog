@@ -2,7 +2,7 @@ import Post from '../models/post.js';
 import ExpressError from '../utils/ExpressError.js';
 import catchAsync from '../utils/catchAsync.js';
 
-export const create = catchAsync(async (req, res, next) => {
+export const create = catchAsync(async (req, res) => {
   if (!req.user.isAdmin) {
     throw new ExpressError('You are not allowed to create a post', 403);
   }
@@ -23,7 +23,7 @@ export const create = catchAsync(async (req, res, next) => {
   res.status(201).json(savedPost);
 });
 
-export const getposts = catchAsync(async (req, res, next) => {
+export const getposts = catchAsync(async (req, res) => {
   const startIndex = parseInt(req.query.startIndex) || 0;
   const limit = parseInt(req.query.limit) || 9;
   const sortDirection = req.query.order === 'asc' ? 1 : -1;
@@ -64,10 +64,29 @@ export const getposts = catchAsync(async (req, res, next) => {
   });
 });
 
-export const deletepost = catchAsync(async (req, res, next) => {
+export const deletepost = catchAsync(async (req, res) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to delete this post', 403);
   }
   await Post.findByIdAndDelete(req.params.postId);
   res.status(200).json('The post has been deleted');
+});
+
+export const updatepost = catchAsync(async (req, res) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    throw new ExpressError('You are not allowed to update this post', 403);
+  }
+  const updatedPost = await Post.findByIdAndUpdate(
+    req.params.postId,
+    {
+      $set: {
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
+        image: req.body.image,
+      },
+    },
+    { new: true }
+  );
+  res.status(200).json(updatedPost);
 });
