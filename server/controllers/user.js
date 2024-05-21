@@ -49,7 +49,7 @@ export const updateUser = catchAsync(async (req, res) => {
 });
 
 export const deleteUser = catchAsync(async (req, res) => {
-  if (req.user.id !== req.params.userId) {
+  if (!req.user.isAdmin && req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to delete this user', 403);
   }
 
