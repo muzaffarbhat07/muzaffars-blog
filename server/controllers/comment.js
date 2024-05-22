@@ -21,3 +21,13 @@ export const createComment = catchAsync(async (req, res) => {
 
   res.status(200).json(newComment);
 });
+
+export const getComments = catchAsync(async (req, res) => {
+  if(!req.params.postId) {
+    throw new ExpressError('postId missing', 400);
+  }
+  const comments = await Comment.find({ postId: req.params.postId }).sort({
+    createdAt: -1,
+  });
+  res.status(200).json(comments);
+});
