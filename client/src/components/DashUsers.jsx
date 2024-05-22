@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
-export default function DashUsers() {
+const DashUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
@@ -152,3 +152,5 @@ export default function DashUsers() {
     </div>
   );
 }
+
+export default DashUsers;
