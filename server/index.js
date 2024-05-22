@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
 import postRoutes from './routes/post.js';
+import commentRoutes from './routes/comment.js';
 /*****************IMPORT ROUTES END******************/
 
 
@@ -35,6 +36,7 @@ app.listen(server_port, () => {
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 /****************CONFIGURE ROUTES END******************/
 
 
