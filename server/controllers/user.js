@@ -95,3 +95,12 @@ export const getUsers = catchAsync(async (req, res, next) => {
     lastMonthUsers,
   });
 });
+
+export const getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.userId);
+  if (!user) {
+    throw new ExpressError('User not found', 404);
+  }
+  const { password, ...rest } = user._doc;
+  res.status(200).json(rest);
+});
