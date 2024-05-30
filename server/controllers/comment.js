@@ -32,7 +32,7 @@ export const getComments = catchAsync(async (req, res) => {
   res.status(200).json(comments);
 });
 
-export const likeComment = catchAsync(async (req, res, next) => {
+export const likeComment = catchAsync(async (req, res) => {
   const comment = await Comment.findById(req.params.commentId);
   if (!comment) {
     throw new ExpressError('Comment not found', 404);
@@ -48,3 +48,27 @@ export const likeComment = catchAsync(async (req, res, next) => {
   await comment.save();
   res.status(200).json(comment);
 });
+
+export const editComment = catchAsync(async (req, res) => {
+  if(!req.body.content) {
+    throw new ExpressError('params missing', 400);
+  }
+  const comment = await Comment.findById(req.params.commentId);
+  if (!comment) {
+    throw new ExpressError('Comment not found', 404);
+  }
+  if (comment.userId !== req.user.id && !req.user.isAdmin) {
+    throw new ExpressError('You are not allowed to edit this comment', 403);
+  }
+
+  const editedComment = await Comment.findByIdAndUpdate(
+    req.params.commentId,
+    {
+      content: req.body.content,
+    },
+    { new: true }
+  );
+  res.status(200).json(editedComment)
+});
+
+
