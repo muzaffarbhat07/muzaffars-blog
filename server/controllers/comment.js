@@ -31,3 +31,20 @@ export const getComments = catchAsync(async (req, res) => {
   });
   res.status(200).json(comments);
 });
+
+export const likeComment = catchAsync(async (req, res, next) => {
+  const comment = await Comment.findById(req.params.commentId);
+  if (!comment) {
+    throw new ExpressError('Comment not found', 404);
+  }
+  const userIndex = comment.likes.indexOf(req.user.id);
+  if (userIndex === -1) {
+    comment.numberOfLikes += 1;
+    comment.likes.push(req.user.id);
+  } else {
+    comment.numberOfLikes -= 1;
+    comment.likes.splice(userIndex, 1);
+  }
+  await comment.save();
+  res.status(200).json(comment);
+});
