@@ -9,7 +9,7 @@ import {
 import { Button, Table } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
-export default function DashboardComp() {
+const DashboardComp = () => {
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -210,3 +210,5 @@ export default function DashboardComp() {
     </div>
   );
 }
+
+export default DashboardComp;

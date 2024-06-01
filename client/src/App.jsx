@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp"
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
 import PostPage from './pages/PostPage';
+import Search from './pages/Search';
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import PrivateRoute from './components/PrivateRoute';
@@ -28,7 +29,8 @@ function App() {
         <Route path='/post/:postSlug' element={<PostPage />} />
         <Route path="/signin" element={<SignIn />}/>
         <Route path="/signup" element={<SignUp />}/>
-
+        <Route path='/search' element={<Search />} />
+        
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
