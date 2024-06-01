@@ -3,6 +3,7 @@ const app = express();
 import mongoose from 'mongoose';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 /*******************IMPORT ROUTES*******************/
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
@@ -21,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URI)
 /********************REQUIREMENTS********************/
 app.use(express.json());
 app.use(cookieParser());
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/client/dist')));
 /******************REQUIREMENTS END*******************/
 
 
@@ -39,6 +42,12 @@ app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 /****************CONFIGURE ROUTES END******************/
 
+
+/********************GET ALL***************************/
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+/******************GET ALL END*************************/
 
 /******************ERROR HANDLER***********************/
 app.use((err, req, res, next) => {
