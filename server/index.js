@@ -13,7 +13,9 @@ import commentRoutes from './routes/comment.js';
 
 
 /******************CONNECT DATABASE*****************/
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, {
+  dbName: "muzaffars-blog",
+})
 .then(() => console.log("Database Connected"))
 .catch(err => console.log(err))
 /****************CONNECT DATABASE END****************/
