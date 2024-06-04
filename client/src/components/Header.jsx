@@ -74,7 +74,7 @@ const Header = () => {
       </Button>
       <div className='flex gap-2 md:order-2'>
         <Button
-          className='w-12 h-10 inline'
+          className='w-12 h-10 hidden sm:inline'
           color='gray'
           pill
           onClick={() => dispatch(toggleTheme())}
@@ -102,7 +102,7 @@ const Header = () => {
         ) : (
           <Link to='/signin'>
             <Button gradientDuoTone='purpleToBlue' outline>
-              Sign In
+              Sign in
             </Button>
           </Link>
         )}
@@ -137,6 +137,15 @@ const Header = () => {
         {/* <Navbar.Link active={path === '/signin'} as={'div'} className='sm:hidden'>
           <Link to='/signin'>Sign in</Link>
         </Navbar.Link> */}
+        <Navbar.Link active={path === '/about'} as={'div'} className='sm:hidden'>
+          <Button
+            color='gray'
+            onClick={() => dispatch(toggleTheme())}
+          >
+            {theme === 'light' ? <FaSun /> : <FaMoon />}
+            {/* {theme === 'light' ? 'Dark' : 'Light'} */}
+          </Button>
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
