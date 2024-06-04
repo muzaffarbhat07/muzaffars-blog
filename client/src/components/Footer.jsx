@@ -1,6 +1,6 @@
 import { Footer } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble } from 'react-icons/bs';
+import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble, BsLinkedin } from 'react-icons/bs';
 const MyFooter = () => {
   return (
     <Footer container className='border border-t-8 border-teal-500'>
@@ -47,7 +47,12 @@ const MyFooter = () => {
                 >
                   Github
                 </Footer.Link>
-                <Footer.Link href='#'>Discord</Footer.Link>
+                <Footer.Link 
+                  href='https://www.linkedin.com/in/muzaffarbhat/'
+                  target='_blank'
+                >
+                  LinkedIn
+                </Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
@@ -67,11 +72,12 @@ const MyFooter = () => {
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon href='#' icon={BsFacebook}/>
-            <Footer.Icon href='#' icon={BsInstagram}/>
-            <Footer.Icon href='#' icon={BsTwitter}/>
-            <Footer.Icon href='https://github.com/muzaffarbhat07' icon={BsGithub}/>
-            <Footer.Icon href='#' icon={BsDribbble}/>
+            {/* <Footer.Icon href='#' icon={BsFacebook}/> */}
+            <Footer.Icon href='https://www.instagram.com/_muzaffarbhat07/' icon={BsInstagram} target='_blank'/>
+            {/* <Footer.Icon href='#' icon={BsTwitter}/> */}
+            <Footer.Icon href='https://github.com/muzaffarbhat07' icon={BsGithub} target='_blank'/>
+            {/* <Footer.Icon href='#' icon={BsDribbble}/> */}
+            <Footer.Icon href='https://www.linkedin.com/in/muzaffarbhat/' icon={BsLinkedin} target='_blank'/>
 
           </div>
         </div>

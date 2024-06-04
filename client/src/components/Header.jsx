@@ -74,7 +74,7 @@ const Header = () => {
       </Button>
       <div className='flex gap-2 md:order-2'>
         <Button
-          className='w-12 h-10 hidden sm:inline'
+          className='w-12 h-10 inline'
           color='gray'
           pill
           onClick={() => dispatch(toggleTheme())}
@@ -113,12 +113,22 @@ const Header = () => {
         <Navbar.Link active={path === '/'} as={'div'}>
           <Link to='/'>Home</Link>
         </Navbar.Link>
+        {(currentUser && currentUser.isAdmin) ? (
+          <Navbar.Link active={path === '/dashboard'} as={'div'}>
+            <Link to='/dashboard?tab=dash'>Dashboard</Link>
+          </Navbar.Link>
+        ) : (
+          <Navbar.Link active={path === '/search'} as={'div'}>
+            <Link to='/search'>Posts</Link>
+          </Navbar.Link>
+        )}
+        
         <Navbar.Link active={path === '/about'} as={'div'}>
           <Link to='/about'>About</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === '/projects'} as={'div'}>
+        {/* <Navbar.Link active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Projects</Link>
-        </Navbar.Link>
+        </Navbar.Link> */}
       </Navbar.Collapse>
     </Navbar>
   );
