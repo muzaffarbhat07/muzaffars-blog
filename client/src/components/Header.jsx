@@ -137,14 +137,15 @@ const Header = () => {
         {/* <Navbar.Link active={path === '/signin'} as={'div'} className='sm:hidden'>
           <Link to='/signin'>Sign in</Link>
         </Navbar.Link> */}
-        <Navbar.Link active={path === '/about'} as={'div'} className='sm:hidden'>
-          <Button
+        <Navbar.Link as={'div'} className='sm:hidden'>
+          <button
+            className='flex justify-between items-center w-full'
             color='gray'
             onClick={() => dispatch(toggleTheme())}
           >
-            {theme === 'light' ? <FaSun /> : <FaMoon />}
-            {/* {theme === 'light' ? 'Dark' : 'Light'} */}
-          </Button>
+            {theme === 'light' ? 'Dark ' : 'Light '}
+            {theme === 'light' ? <FaMoon className='inline'/> : <FaSun className='inline' />}
+          </button>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
