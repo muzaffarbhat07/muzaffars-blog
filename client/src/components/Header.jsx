@@ -39,7 +39,7 @@ const Header = () => {
       });
       const data = await res.json();
       if (!res.ok) {
-        console.log(data.message);
+        console.log(data.error);
       } else {
         dispatch(signoutSuccess());
       }
@@ -52,7 +52,7 @@ const Header = () => {
     <Navbar className='border-b-2'>
       <Link
         to='/'
-        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
+        className='self-center whitespace-nowrap text-xl font-semibold dark:text-white'
       >
         <span className='px-2 py-1 pb-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
           Muzaffar's
@@ -69,8 +69,8 @@ const Header = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch />
+      <Button className='w-12 h-10 hidden sm:inline lg:hidden' color='gray' pill>
+        <Link to='/search'><AiOutlineSearch /></Link>
       </Button>
       <div className='flex gap-2 md:order-2'>
         <Button
@@ -118,9 +118,14 @@ const Header = () => {
             <Link to='/dashboard?tab=dash'>Dashboard</Link>
           </Navbar.Link>
         ) : (
-          <Navbar.Link active={path === '/search'} as={'div'}>
-            <Link to='/search'>Posts</Link>
-          </Navbar.Link>
+          <>
+            <Navbar.Link active={path === '/search'} as={'div'} className='hidden sm:inline'>
+              <Link to='/search'>Posts</Link>
+            </Navbar.Link>
+            <Navbar.Link active={path === '/search'} as={'div'} className='sm:hidden'>
+              <Link to='/search'>Search</Link>
+            </Navbar.Link>
+          </>
         )}
         
         <Navbar.Link active={path === '/about'} as={'div'}>
@@ -128,6 +133,9 @@ const Header = () => {
         </Navbar.Link>
         {/* <Navbar.Link active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Projects</Link>
+        </Navbar.Link> */}
+        {/* <Navbar.Link active={path === '/signin'} as={'div'} className='sm:hidden'>
+          <Link to='/signin'>Sign in</Link>
         </Navbar.Link> */}
       </Navbar.Collapse>
     </Navbar>

@@ -146,7 +146,7 @@ const DashProfile = () => {
       });
       const data = await res.json();
       if (!res.ok) {
-        console.log(data.message);
+        console.log(data.error);
       } else {
         dispatch(signoutSuccess());
       }

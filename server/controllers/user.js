@@ -8,7 +8,6 @@ export const test = (req, res) => {
 };
 
 export const updateUser = catchAsync(async (req, res) => {
-  console.log('updating')
   if (req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to update this user', 403);
   }
