@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const CreatePost = () => {
   const [file, setFile] = useState(null);
@@ -20,6 +21,7 @@ const CreatePost = () => {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -155,7 +157,7 @@ const CreatePost = () => {
           required
           onChange={(value) => setFormData({...formData, content: value})}
         />
-        <Button type='submit' gradientDuoTone='purpleToPink'>
+        <Button type='submit' gradientDuoTone='purpleToPink' disabled={currentUser && currentUser.isTestAdmin}>
           Publish
         </Button>
         {publishError && (

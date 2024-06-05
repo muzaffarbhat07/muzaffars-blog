@@ -3,7 +3,7 @@ import ExpressError from '../utils/ExpressError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 export const create = catchAsync(async (req, res) => {
-  if (!req.user.isAdmin) {
+  if (!(req.user.isAdmin && req.user.isTestAdmin)) {
     throw new ExpressError('You are not allowed to create a post', 403);
   }
   if (!req.body.title || !req.body.content) {
@@ -65,7 +65,7 @@ export const getposts = catchAsync(async (req, res) => {
 });
 
 export const deletepost = catchAsync(async (req, res) => {
-  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+  if (!(req.user.isAdmin && req.user.isTestAdmin) || req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to delete this post', 403);
   }
   await Post.findByIdAndDelete(req.params.postId);
@@ -73,7 +73,7 @@ export const deletepost = catchAsync(async (req, res) => {
 });
 
 export const updatepost = catchAsync(async (req, res) => {
-  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+  if (!(req.user.isAdmin && req.user.isTestAdmin) || req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to update this post', 403);
   }
   const updatedPost = await Post.findByIdAndUpdate(

@@ -77,14 +77,13 @@ export const deleteComment = catchAsync(async (req, res) => {
   if (!comment) {
     throw new ExpressError('Comment not found', 404);
   }
-  if (comment.userId !== req.user.id && !req.user.isAdmin) {
+  if (comment.userId !== req.user.id && !(req.user.isAdmin && !req.user.isTestAdmin)) {
     throw new ExpressError('You are not allowed to delete this comment', 403);
   }
   await Comment.findByIdAndDelete(req.params.commentId);
   res.status(200).json('Comment has been deleted');
 
 });
-
 
 export const getAllComments = catchAsync(async (req, res, next) => {
   if (!req.user.isAdmin) {

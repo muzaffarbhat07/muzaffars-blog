@@ -3,10 +3,6 @@ import ExpressError from '../utils/ExpressError.js';
 import catchAsync from '../utils/catchAsync.js';
 import User from '../models/user.js';
 
-export const test = (req, res) => {
-  res.json({ message: 'API is working!' });
-};
-
 export const updateUser = catchAsync(async (req, res) => {
   if (req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to update this user', 403);
@@ -48,7 +44,7 @@ export const updateUser = catchAsync(async (req, res) => {
 });
 
 export const deleteUser = catchAsync(async (req, res) => {
-  if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+  if (!(req.user.isAdmin && !req.user.isTestAdmin) && req.user.id !== req.params.userId) {
     throw new ExpressError('You are not allowed to delete this user', 403);
   }
 
