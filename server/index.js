@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, '/client/dist')));
 
 
 /********************START SERVER********************/
-const server_port = process.env.SERVER_PORT || 8000;
+const server_port = process.env.PORT || 8000;
 app.listen(server_port, () => {
   console.log(`Server running on port ${server_port}`)
 })
