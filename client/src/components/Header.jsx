@@ -97,6 +97,16 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
+            {currentUser && currentUser.isAdmin && (
+              <>
+              <Link to={'/create-post'} 
+                className="text-pink-500 py-2 px-4 w-full block hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:hover:bg-gray-600 dark:focus:bg-gray-600"
+              >
+                Create a post
+              </Link>
+              <Dropdown.Divider />
+              </>
+            )}
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
