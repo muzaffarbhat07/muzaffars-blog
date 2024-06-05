@@ -1,4 +1,4 @@
-import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
+import { Alert, Button, Label, Spinner, Table, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -104,10 +104,32 @@ const SignIn = () => {
             <OAuth />
           </form>
           <div className='flex gap-2 text-sm mt-5'>
-            <span>Dont Have an account?</span>
+            <span>Don't have an account?</span>
             <Link to='/signup' className='text-blue-500'>
               Sign Up
             </Link>
+          </div>
+          <div className='mt-5 table-auto overflow-x-auto p-1 md:mx-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+            <p>Test Credentials:</p>
+            <Table hoverable className='shadow-md mt-1'>
+            <Table.Head>
+              <Table.HeadCell>User Type</Table.HeadCell>
+              <Table.HeadCell>Email</Table.HeadCell>
+              <Table.HeadCell>Password</Table.HeadCell>
+            </Table.Head>
+            <Table.Body className='divide-y'>
+              <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                <Table.Cell>normal</Table.Cell>
+                <Table.Cell>test@gmail.com</Table.Cell>
+                <Table.Cell>test</Table.Cell>
+              </Table.Row>
+              <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                <Table.Cell>admin</Table.Cell>
+                <Table.Cell>testadmin@gmail.com</Table.Cell>
+                <Table.Cell>testadmin</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
           </div>
           {errorMessage && (
             <Alert className='mt-5' color='failure'>
