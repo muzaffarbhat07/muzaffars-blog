@@ -69,7 +69,7 @@ const SignIn = () => {
               <Label value='Email' />
               <TextInput
                 type='email'
-                placeholder='name@company.com'
+                placeholder='test@gmail.com'
                 id='email'
                 value={formData.email}
                 onChange={handleChange}
@@ -80,7 +80,7 @@ const SignIn = () => {
               <Label value='Password' />
               <TextInput
                 type='password'
-                placeholder='**********'
+                placeholder='test'
                 id='password'
                 value={formData.password}
                 onChange={handleChange}
